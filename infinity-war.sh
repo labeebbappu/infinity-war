@@ -71,34 +71,37 @@ check_api() {
     fi
 }
 
-# Sends an email alert
+# Sends an email alert using curl with SMTP settings from config.json
 send_email_alert() {
     local api_name="$1"
     local subject="Infinity War Alert: $api_name is DOWN!"
-    local body="API: $api_name has been down for $FAILURE_THRESHOLD consecutive checks.\n\nPlease investigate immediately."
+    local body="API: $api_name has been down for $FAILURE_THRESHOLD consecutive checks. Please investigate immediately."
 
-    log_message "ALERT: $api_name has been down for $FAILURE_THRESHOLD consecutive checks. Attempting to send email."
+    log_message "ALERT: $api_name has been down for $FAILURE_THRESHOLD consecutive checks. Attempting to send email via $SMTP_HOST."
 
-    # Using sendmail command for sending email. Requires sendmail to be configured on the system.
-    # This is a basic example and might need adjustments based on your sendmail configuration.
-    (echo "From: $SMTP_USER"
-     echo "To: $SMTP_USER"
-     echo "Subject: $subject"
-     echo ""
-     echo "$body") | sendmail -t
+    # Prepare email content for curl
+    email_content=$(printf "From: %s\nTo: %s\nSubject: %s\n\n%s" "$SMTP_USER" "$SMTP_USER" "$subject" "$body")
+
+    # Send email using curl
+    curl_response=$(curl --silent --show-error --ssl-reqd \
+        --url "smtp://$SMTP_HOST:$SMTP_PORT" \
+        --user "$SMTP_USER:$SMTP_PASSWORD" \
+        --mail-from "$SMTP_USER" \
+        --mail-rcpt "$SMTP_USER" \
+        -T <(echo -e "$email_content"))
 
     if [ $? -eq 0 ]; then
         log_message "Email alert sent successfully for $api_name."
     else
-        log_message "ERROR: Failed to send email alert for $api_name. Check sendmail configuration."
+        log_message "ERROR: Failed to send email alert for $api_name. Curl response: $curl_response"
     fi
 }
 
 # Reboots the system
 reboot_system() {
     log_message "CRITICAL: All APIs are down. Rebooting system as per configuration."
-    # For safety, this is commented out. Uncomment to enable.
-    # sudo reboot
+    # The reboot feature is now active.
+    sudo reboot
 }
 
 # Updates the state of API failures

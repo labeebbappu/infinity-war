@@ -46,11 +46,8 @@ The script will use a `config.json` file for all its settings.
 *   **`log_file`**: The path to the log file.
 *   **`state_file`**: The path to the file used for storing the state of API failures.
 
-## 4. State Management
 
-The script will use a state file (e.g., `/tmp/infinity-war.state`) to keep track of consecutive failures for each API. This file will store a JSON object where keys are API names and values are the failure counts.
-
-## 5. Logging
+## 4. Logging
 
 All actions and errors will be logged to the specified `log_file`. Log entries will be timestamped and will include:
 *   API health check results (success or failure).
@@ -59,22 +56,22 @@ All actions and errors will be logged to the specified `log_file`. Log entries w
 *   Script startup and shutdown events.
 *   Configuration or runtime errors.
 
-## 6. Startup and Status Check
+## 5. Usage
 
-*   **Startup:** The script should be managed by a service manager like `systemd` to ensure it starts on boot and is automatically restarted if it crashes. A sample `systemd` service file will be provided.
-*   **Status Check:** The `systemd` service status can be checked using `systemctl status infinity-war`. Additionally, a command-line flag (`--status` or `status`) will be implemented in the script to report its current operational status.
+*   setup.sh - to setup the config
+*   start.sh - to start the script
+*   stop.sh - to stop the script
+*   status.sh - to check the status of the script
+*   start-on-reboot.sh - start on system reboot
+*   reset-log.sh - to reset the log file
+*   reset-state.sh - to reset the state file
 
-## 7. Security
+## 6. installation 
 
-*   **Credentials:** The SMTP password will be stored in a separate, restricted-access file to enhance security. The script will read the password from this file.
-*   **Permissions:** The script and its configuration files should have appropriate file permissions to prevent unauthorized access or modification.
+clone git repo then run setup.sh to check all dependancy and packages are installed.
+then start.sh to start app in deamon mode.
 
-## 8. Modularity
+start-on-reboot.sh to eazy configure startup on reboot just like pm2
 
-The script will be structured with functions to improve readability and maintainability. Key functions will include:
-*   `load_config`
-*   `check_api`
-*   `send_email_alert`
-*   `reboot_system`
-*   `update_state`
-*   `log_message`
+
+
