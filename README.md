@@ -24,7 +24,7 @@ Ensure you have the following command-line tools installed on your system:
 
 1.  **Clone the Repository**
     ```bash
-    git clone <your-repo-url>
+    git clone https://github.com/labeebbappu/infinity-war.git
     cd infinity-war
     ```
 
@@ -69,8 +69,8 @@ All scripts are designed to be run from the project's root directory.
     "user": "user@example.com",
     "password": "YOUR_SMTP_PASSWORD"
   },
-  "log_file": "/Users/labeeb/drive/labeebdev/infinity-war/infinity-war.log",
-  "state_file": "/Users/labeeb/drive/labeebdev/infinity-war/infinity-war.state"
+  "log_file": "/Users/user/drive/apps/infinity-war/infinity-war.log",
+  "state_file": "/Users/user/drive/apps/infinity-war/infinity-war.state"
 }
 ```
 *   **`apis`**: A list of APIs to monitor.
