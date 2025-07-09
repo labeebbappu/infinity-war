@@ -1,0 +1,18 @@
+{
+  "apis": [
+    {"name": "Greenbin API", "url": "http://3.125.193.249:4003/api/health"},
+    {"name": "Greenbin GQL", "url": "http://3.125.193.249:4002/api/health"},
+    {"name": "Greenbin WEB", "url": "https://greenbin.ctraac.com/api/health"}
+  ],
+  "check_interval_seconds": 60,
+  "failure_threshold": 10,
+  "reboot_on_total_failure": true,
+  "smtp_settings": {
+    "host": "box.ctraac.com",
+    "port": 465,
+    "user": "greenbin@mailer.ctraac.com",
+    "password": "brOmbrOm178*178"
+  },
+  "log_file": "/Users/labeeb/drive/ct-projects/greenbin/greenbin-server-production/infra/infinity-war/infinity-war.log",
+  "state_file": "/Users/labeeb/drive/ct-projects/greenbin/greenbin-server-production/infra/infinity-war/infinity-war.state"
+}
